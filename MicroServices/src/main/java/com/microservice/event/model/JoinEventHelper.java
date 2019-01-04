@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Embeddable;
 
+import org.springframework.stereotype.Component;
+@Component
 @Embeddable
 public class JoinEventHelper implements Serializable {
 	

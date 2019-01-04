@@ -8,6 +8,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+@Component
 @Entity
 @Table(name = "USER")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -26,11 +28,11 @@ public class User extends UserDetails implements Serializable{
 	}
 	
 
-	public String name() {
+	public String getName() {
 		return name;
 	}
 
-	public void name(String userName) {
+	public void setName(String userName) {
 		this.name = userName;
 	}
 

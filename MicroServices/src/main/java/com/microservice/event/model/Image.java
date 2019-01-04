@@ -16,9 +16,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+@Component
 @Entity
 @Table(name="IMAGE")
 public class Image  implements Serializable{

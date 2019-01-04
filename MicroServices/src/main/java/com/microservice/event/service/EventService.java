@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service;
 import com.microservice.event.dao.Dao;
 import com.microservice.event.model.User;
 
-@Service
-@Transactional
+
 public class EventService {
 
 	@Autowired
