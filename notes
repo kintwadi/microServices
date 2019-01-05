@@ -1,0 +1,5 @@
+keytool -genkey -alias store -storetype JKS -keyalg RSA -keysize 2048 -validity 360 -keystore store.jks
+
+SSL pw: secret
+
+
