@@ -23,6 +23,7 @@ public class Category implements Serializable{
 	@GeneratedValue
 	private long categoryId;
 	private String name;
+	private String lang;
 	private String page;
 	public Category() {
 		
@@ -32,6 +33,12 @@ public class Category implements Serializable{
 	}
 	public void setCategoryId(long categoryId) {
 		this.categoryId = categoryId;
+	}
+	public String getLang() {
+		return lang;
+	}
+	public void setLang(String lang) {
+		this.lang = lang;
 	}
 	public String getName() {
 		return name;
@@ -45,6 +52,13 @@ public class Category implements Serializable{
 	public void setPage(String page) {
 		this.page = page;
 	}
+	@Override
+	public String toString() {
+		return "Category [categoryId=" + categoryId + ", name=" + name + ", lang=" + lang + ", page=" + page + "]";
+	}
+	
+	
+	
 	
 	
 	

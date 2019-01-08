@@ -62,6 +62,7 @@ public class EventBookingDao implements IEventBookingDao {
 	@Override
 	public List<Object> getAll(Object clazz) {
 		
+		
 		if(clazz instanceof User) {
 			
 			return getSession().createCriteria(User.class).list();
@@ -78,14 +79,19 @@ public class EventBookingDao implements IEventBookingDao {
 			
 			return getSession().createCriteria(Image.class).list();
 		}
+       
+       if(clazz instanceof Category) {
+		
+			return getSession().createCriteria(Category.class).list();
+		}
 		return null;
 		
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Object> getAllByCriteria(Object clazz, String criteria) {
-		return getSession().createCriteria(clazz.getClass()).add(Restrictions.eq(criteria, criteria)).list();
+	public List<Object> getAllByCriteria(Object clazz, String criteria,String entry) {
+		return getSession().createCriteria(clazz.getClass()).add(Restrictions.eq(criteria, entry)).list();
 	}
 
 	@Override
@@ -127,6 +133,12 @@ public class EventBookingDao implements IEventBookingDao {
 		
 		return query.list().get(0);
 	}
+	
+	
+
+
+
+	
 
 
 }

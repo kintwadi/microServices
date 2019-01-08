@@ -346,6 +346,14 @@ public class EventService {
 			return response;
 		
 	}
+	public Response listCategories(Object category,String criteria,String lang) {
+	
+			List<Object> categories = dao.getAllByCriteria(category,criteria, lang);
+			response.setReponseDataList(categories);
+			response.setMessage("list of categories");
+			return response;	
+	
+	}
 
 
 

@@ -44,10 +44,9 @@
       <ul class="nav navbar-nav navbar-right">
       	 <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="categories"></span> <span class="caret"></span></a>
-          <ul class="dropdown-menu" id="categories_container">
+          <ul class="dropdown-menu" id="category_container">
             <li><a href="#">Page 1-1</a></li>
-            <li><a href="#">Page 1-2</a></li>
-            <li><a href="#">Page 1-3</a></li>
+           
           </ul>
         </li>
       	<li ><a href ="#"  ><span class="glyphicon glyphicon-earphone" id = "contact"></span></a></li>

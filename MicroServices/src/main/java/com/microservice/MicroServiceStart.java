@@ -38,7 +38,7 @@ public class MicroServiceStart {
 		redirectConnector.setScheme("http");
 		redirectConnector.setPort(8080);
 		redirectConnector.setSecure(false);
-		redirectConnector.setRedirectPort(8443);
+		redirectConnector.setRedirectPort(8181);
 		return redirectConnector;
 	}
 }

@@ -36,6 +36,9 @@ public class HomeController {
 	private Placement placement;
 	@Autowired
 	private JoinEventHelper joinEventHelper;
+	
+	@Autowired
+	private Category category;
 
 	@RequestMapping("/")
 	public String initializer( @ModelAttribute User user,Model model,HttpSession session) {
@@ -45,13 +48,29 @@ public class HomeController {
 	}
 	
 	@PostMapping("/register_category")
+	@ResponseBody
 	public String addCategory(@RequestBody Category category, Model model) {
 		
 		Response reponse = service.addCategories(category);
 		return reponse.getMessage();
 	}
 	
+	@GetMapping("/list_categories/{lang}")
+	@ResponseBody
+	public List<Object>getCategories(@PathVariable String lang){
+		
+		
+		return service.listCategories(category, "lang",lang).getReponseDataList();
 	
+	}
+	
+	@GetMapping("/category/{page}")
+	public String cetegoryPage(@PathVariable String page,Model model) {
+		
+		System.out.println("page: "+page);
+		model.addAttribute("page", page);
+		return "category_page";
+	}
 
 	// Users
 	@PostMapping("/register_user")

@@ -15,11 +15,37 @@ var menuData = {
 
 
 
-function MenuBar(data){
+function MenuBar(data,lang){
 	
 	this.data = data;
+	this.listCategories = (lang)=>{
 		
+		var xhttp = new XMLHttpRequest();
+		  xhttp.onreadystatechange=function() {
+			  
+		    if (this.readyState == 4 && this.status == 200) {
+		    	
+		      var categories = JSON.parse(this.responseText);
+		      var category_container = document.getElementById("category_container");
+		      for(var i = 0; i< categories.length; i++ ){
+		    	
+		    	  var li = document.createElement("li");
+		    	  var a = document.createElement("a");
+			      a.setAttribute('href',"/category/"+categories[i]["page"]);
+			      a.innerHTML = categories[i]["name"];
+			     
+			      li.appendChild(a);
+			      category_container.appendChild(li);
+		      }
+		   
+		    }
+		  };
+		  xhttp.open("GET", "list_categories/"+lang, true);
+		  xhttp.send();
+	}
 }
+
+
 
 
 function createMenubar(lang){
@@ -29,6 +55,7 @@ function createMenubar(lang){
 	if(lang == "en"){
 		
 		menu = new MenuBar(menuData);
+		menu.listCategories(lang);
 	}
 	var brand = document.getElementById("brand");
 	var home = document.getElementById("home");
