@@ -7,13 +7,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>home</title>
-<link href="app_css/application.css"rel="stylesheet">
-<c:set value="${pageContext.request.contextPath}"  var="context"></c:set> 
-
-<%-- <%@ include file=${context}/ %> --%>
+<title>Insert title here</title>
 </head>
 <body>
-<h1>home... ${context}</h1>
+
 </body>
 </html>

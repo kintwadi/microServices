@@ -4,6 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.microservice</groupId>
+	
 	<artifactId>MicroServices</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
@@ -55,12 +56,12 @@
 		<dependency>
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
-        <version>5.1.46</version>
-    </dependency>
+        </dependency>
     <dependency>
 			<groupId>commons-validator</groupId>
 			<artifactId>commons-validator</artifactId>
 			<version>1.4.1</version>
+			
 		</dependency>
 	</dependencies>
 
