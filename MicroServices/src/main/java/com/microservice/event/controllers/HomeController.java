@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.microservice.event.model.*;
 import com.microservice.event.response.Response;
-import com.microservice.event.service.EventBookingService;
+import com.microservice.event.service.EventService;
 
 
 
@@ -27,7 +27,7 @@ import com.microservice.event.service.EventBookingService;
 public class HomeController {
 
 	@Autowired
-	private EventBookingService service;
+	private EventService service;
 	@Autowired
 	private User user;
 	@Autowired
@@ -40,9 +40,18 @@ public class HomeController {
 	@RequestMapping("/")
 	public String initializer( @ModelAttribute User user,Model model,HttpSession session) {
 
-
+		
 		return service.getInitPage().getView();
 	}
+	
+	@PostMapping("/register_category")
+	public String addCategory(@RequestBody Category category, Model model) {
+		
+		Response reponse = service.addCategories(category);
+		return reponse.getMessage();
+	}
+	
+	
 
 	// Users
 	@PostMapping("/register_user")
