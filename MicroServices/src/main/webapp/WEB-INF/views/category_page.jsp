@@ -9,12 +9,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title >Category</title>
 
-
 <%@ include file="header.jsp" %>
 </head>
-<body>
+<body >
 
-page for
+<h5>${page}</h5>
 
 
 </body>

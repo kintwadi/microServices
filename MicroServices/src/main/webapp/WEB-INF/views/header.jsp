@@ -7,7 +7,10 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="app_css/application.css"rel="stylesheet">
+
+<c:set var="context" value="${pageContext.request.contextPath}"/>
+
+<link href="/app_css/application.css"rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -15,7 +18,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </head>
-<body>
+<body >
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -45,7 +48,7 @@
       	 <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="categories"></span> <span class="caret"></span></a>
           <ul class="dropdown-menu" id="category_container">
-            <li><a href="#">Page 1-1</a></li>
+            
            
           </ul>
         </li>
@@ -68,6 +71,6 @@
 </div>
 
 <!-- AFTER LOAD SCRIPT -->
-<script type="text/javascript" src="app_script/application.js"></script>
+<script type="text/javascript" src="/app_script/application.js"></script>
 </body>
 </html>

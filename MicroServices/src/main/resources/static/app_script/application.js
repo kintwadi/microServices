@@ -26,13 +26,17 @@ function MenuBar(data,lang){
 		    if (this.readyState == 4 && this.status == 200) {
 		    	
 		      var categories = JSON.parse(this.responseText);
+		      
 		      var category_container = document.getElementById("category_container");
+		      //a.setAttribute('href',"category/");
 		      for(var i = 0; i< categories.length; i++ ){
 		    	
 		    	  var li = document.createElement("li");
 		    	  var a = document.createElement("a");
-			      a.setAttribute('href',"/category/"+categories[i]["page"]);
-			      a.innerHTML = categories[i]["name"];
+			      a.addEventListener('click',getCategory,false);
+			      a.param = categories;
+			      a.innerHTML = categories[i]["name"].toUpperCase();
+			      a.setAttribute('class',"category");
 			     
 			      li.appendChild(a);
 			      category_container.appendChild(li);
@@ -43,6 +47,27 @@ function MenuBar(data,lang){
 		  xhttp.open("GET", "list_categories/"+lang, true);
 		  xhttp.send();
 	}
+}
+var flag = true;
+function getCategory(e){
+	
+ var a = document.getElementsByClassName("category");	
+ var categories = a[0].param;
+
+	for(var i = 0; i< categories.length; i++ ){
+
+		if(flag){
+			a = document.getElementsByClassName("category");
+			a[i].setAttribute('href',"category/"+categories[i]["page"]);
+			flag = false;
+		}else{
+			a = document.getElementsByClassName("category");
+			a[i].setAttribute('href',categories[i]["page"]);
+			
+		}
+	}
+	
+	
 }
 
 
@@ -55,6 +80,7 @@ function createMenubar(lang){
 	if(lang == "en"){
 		
 		menu = new MenuBar(menuData);
+		
 		menu.listCategories(lang);
 	}
 	var brand = document.getElementById("brand");
@@ -74,4 +100,8 @@ function createMenubar(lang){
 	
 
 }
+
 createMenubar("en");
+
+
+

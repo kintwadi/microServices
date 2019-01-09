@@ -24,6 +24,7 @@ import com.microservice.event.service.EventService;
 
 
 @Controller
+
 public class HomeController {
 
 	@Autowired
@@ -57,9 +58,16 @@ public class HomeController {
 	
 	@GetMapping("/list_categories/{lang}")
 	@ResponseBody
-	public List<Object>getCategories(@PathVariable String lang){
+	public List<Object>getCategoriesFromHomePage(@PathVariable String lang){
+
+		return service.listCategories(category, "lang",lang).getReponseDataList();
+	
+	}
+	@GetMapping("category/list_categories/{lang}")
+	@ResponseBody
+	public List<Object>getCategoriesFromCategoryPage(@PathVariable String lang){
 		
-		
+	
 		return service.listCategories(category, "lang",lang).getReponseDataList();
 	
 	}
@@ -67,7 +75,7 @@ public class HomeController {
 	@GetMapping("/category/{page}")
 	public String cetegoryPage(@PathVariable String page,Model model) {
 		
-		System.out.println("page: "+page);
+		
 		model.addAttribute("page", page);
 		return "category_page";
 	}
