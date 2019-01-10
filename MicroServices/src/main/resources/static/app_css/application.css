@@ -2,3 +2,41 @@ body{
 	
 	background-color: silver;
 }
+
+
+.search_container {
+  background-color:#111111;
+  padding:2px;
+  float:right;
+  width:50%; 
+  color: white;
+  border-style: 1px solid;
+  border-radius: 10px;
+}
+.lang_imprint_search_container{
+	float:right;
+	width:100%; 
+}
+.search_input{
+	float: left;
+	width:100%; 
+}
+#search_input{
+	float: left;
+	width:100%; 
+	
+}
+.lang_imprint_container{
+	float: right;
+	padding: 5px;
+	
+}
+
+
+/* Use a media query to add a break point at 800px: */
+@media screen and (max-width:800px) {
+  .right .lang_imprint_search_container .search_input #search_input{
+    width:100%; /* The width is 100%, when the viewport is 800px or smaller */
+  }
+}
+
