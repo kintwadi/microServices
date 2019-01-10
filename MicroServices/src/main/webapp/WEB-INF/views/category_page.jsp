@@ -19,9 +19,10 @@
 
 
 <script>
+createMenubar("en","");
 function updateCategoryLinks(lang){
 
-
+	
 	var xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange=function() {
 		  
@@ -57,7 +58,7 @@ function updateCategoryLinks(lang){
 	
 }
 
-updateCategoryLinks("en");
+//updateCategoryLinks("en");
 
 
 </script>

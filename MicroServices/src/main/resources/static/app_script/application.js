@@ -2,7 +2,7 @@
 var menuData = {
 	
 	logo:"logo",
-	brand:"Bodadbue",
+	brand:"Bodasbue",
 	home: "home",
 	contact:"Contact:",
 	phone:" (49)124589660",
@@ -15,7 +15,7 @@ var menuData = {
 
 
 
-function MenuBar(data,lang){
+function MenuBar(data,lang,baselink){
 	
 	this.data = data;
 	this.lang = lang;
@@ -29,6 +29,7 @@ function MenuBar(data,lang){
 		      var categories = JSON.parse(this.responseText);
 		      
 		      var category_container = document.getElementById("category_container");
+		      category_container.innerHTML = "";
 		     
 		      for(var i = 0; i< categories.length; i++ ){
 		    	
@@ -36,7 +37,7 @@ function MenuBar(data,lang){
 		    	  var a = document.createElement("a");
 			      a.param = categories;
 			      a.innerHTML = categories[i]["name"].toUpperCase();
-			      a.setAttribute('href',"category/"+categories[i]["page"]);
+			      a.setAttribute('href',baselink+""+categories[i]["page"]);
 			      a.setAttribute('class',"category");
 			      a.setAttribute('id',"category"+i);
 			     
@@ -51,13 +52,13 @@ function MenuBar(data,lang){
 	}
 }
 
-function createMenubar(lang){
+function createMenubar(lang,baselink){
 	
 	var menu = null ;
 	// setup the language
 	if(lang == "en"){
 		
-		menu = new MenuBar(menuData,lang);
+		menu = new MenuBar(menuData,lang,baselink);
 		
 		menu.listCategories(lang);
 	}
@@ -79,7 +80,7 @@ function createMenubar(lang){
 
 }
 
-createMenubar("en");
+createMenubar("en","category/");
 
 
 
