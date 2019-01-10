@@ -58,25 +58,27 @@ public class HomeController {
 	
 	@GetMapping("/list_categories/{lang}")
 	@ResponseBody
-	public List<Object>getCategoriesFromHomePage(@PathVariable String lang){
-
-		return service.listCategories(category, "lang",lang).getReponseDataList();
+	public List<Object>getCategoriesFromHomePage(@PathVariable String lang,Model model){
+	
+		model.addAttribute("language", lang);
+		return service.listCategories(category, "lang",lang.toLowerCase()).getReponseDataList();
 	
 	}
 	@GetMapping("category/list_categories/{lang}")
 	@ResponseBody
-	public List<Object>getCategoriesFromCategoryPage(@PathVariable String lang){
+	public List<Object>getCategoriesFromCategoryPage(@PathVariable String lang,Model model,HttpSession session){
 		
-	
-		return service.listCategories(category, "lang",lang).getReponseDataList();
+		
+		model.addAttribute("language", lang);
+		return service.listCategories(category, "lang",lang.toLowerCase()).getReponseDataList();
 	
 	}
 	
-	@GetMapping("/category/{page}")
-	public String cetegoryPage(@PathVariable String page,Model model) {
-		
-		
+	@GetMapping("/category/{page}/{lang}")
+	public String cetegoryPage(@PathVariable String page,Model model,@PathVariable String lang) {
+	
 		model.addAttribute("page", page);
+		model.addAttribute("language", lang);
 		return "category_page";
 	}
 

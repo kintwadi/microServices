@@ -14,12 +14,21 @@
 </head>
 
 <body >
-
+<input type="hidden" id="currentLanguage" value="${language}">
 <h5>${page}</h5>
-
+<h5>${language}</h5>
 
 <script>
-createMenubar("en","");
+
+
+
+var currentLanguage = document.getElementById("currentLanguage");
+
+document.getElementById("lang_select").value = currentLanguage.value;
+
+
+createMenubar(currentLanguage.value,"");
+
 function updateCategoryLinks(lang){
 
 	
@@ -40,9 +49,9 @@ function updateCategoryLinks(lang){
 	    	  var a = document.createElement("a");
 		      a.param = categories;
 		      a.innerHTML = categories[i]["name"].toUpperCase();
-		      a.setAttribute('href',categories[i]["page"]);
-		     a.setAttribute('class',"category");
-		     a.setAttribute('id',"category"+i);
+		      a.setAttribute('href',categories[i]["page"]+"/"+lang);
+		      a.setAttribute('class',"category");
+		      a.setAttribute('id',"category"+i);
 		     
 		      li.appendChild(a);
 		      category_container.appendChild(li);
@@ -58,7 +67,22 @@ function updateCategoryLinks(lang){
 	
 }
 
-//updateCategoryLinks("en");
+var lang_select = document.getElementById("lang_select");
+
+createMenubar(lang_select.value,"category/");
+
+lang_select.addEventListener('change',onLanguageChange);
+
+function onLanguageChange(e){
+	
+	
+	var selectedLang = document.getElementById("lang_select").value;
+	
+	console.log("selected lang: "+selectedLang);
+	createMenubar(selectedLang,"category/");
+}
+
+//updateCategoryLinks(currentLanguage.value);
 
 
 </script>

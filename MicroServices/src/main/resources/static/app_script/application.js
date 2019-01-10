@@ -1,6 +1,6 @@
 
 
-var menuData = {
+var menuDataEN = {
 	
 	logo:"logo",
 	brand:"Bodasbue",
@@ -8,18 +8,35 @@ var menuData = {
 	contact:"Contact:",
 	phone:" (49)124589660",
 	categories:" Categories",
-	signup:" Sign Up",
 	login:" Login",
+	signup:" Sign Up"
+
 	
 	
 };
+
+var menuDataPT = {
+		
+		logo:"logo",
+		brand:"Bodasbue",
+		home: "home",
+		contact:"Contacto:",
+		phone:" (49)124589660",
+		categories:" Categorias",
+		login:" Login",
+		signup:" Cadastrar"
+		
+		
+		
+};
+
 
 
 
 function MenuBar(data,lang,baselink){
 	
 	this.data = data;
-	this.lang = lang;
+	this.lang = lang.toUpperCase();
 	this.listCategories = (lang)=>{
 		
 		var xhttp = new XMLHttpRequest();
@@ -38,7 +55,7 @@ function MenuBar(data,lang,baselink){
 		    	  var a = document.createElement("a");
 			      a.param = categories;
 			      a.innerHTML = categories[i]["name"].toUpperCase();
-			      a.setAttribute('href',baselink+""+categories[i]["page"]);
+			      a.setAttribute('href',baselink+""+categories[i]["page"]+"/"+lang);
 			      a.setAttribute('class',"category");
 			      a.setAttribute('id',"category"+i);
 			     
@@ -56,12 +73,23 @@ function MenuBar(data,lang,baselink){
 function createMenubar(lang,baselink){
 	
 	var menu = null ;
+
 	// setup the language
-	if(lang == "en"){
+	if(lang == "EN"){
 		
-		menu = new MenuBar(menuData,lang,baselink);
+		menu = new MenuBar(menuDataEN,lang,baselink);
 		
 		menu.listCategories(lang);
+		
+		
+	}
+	if(lang == "PT"){
+		
+		menu = new MenuBar(menuDataPT,lang,baselink);
+		
+		menu.listCategories(lang);
+	
+	
 	}
 	var brand = document.getElementById("brand");
 	var home = document.getElementById("home");
@@ -69,6 +97,7 @@ function createMenubar(lang,baselink){
 	var login = document.getElementById("login");
 	var signup = document.getElementById("signup");
 	var categories = document.getElementById("categories");
+	//categories.addEventListener('click',setLanguageOnCategoryGo);
 	
 	brand.textContent = menu.data.brand;
 	home.textContent = menu.data.home;
@@ -76,12 +105,28 @@ function createMenubar(lang,baselink){
 	login.textContent = menu.data.login;
 	signup.textContent = menu.data.signup;
 	categories.textContent = menu.data.categories;
-	
-	
+		
 
 }
 
-createMenubar("en","category/");
+
+
+// default language
+
+var lang_select = document.getElementById("lang_select");
+
+
+createMenubar(lang_select.value,"category/");
+
+lang_select.addEventListener('change',onLanguageChange);
+
+function onLanguageChange(e){
+	
+	
+	var selectedLang = document.getElementById("lang_select").value;
+	
+	createMenubar(selectedLang,"category/");
+}
 
 
 

@@ -87,15 +87,17 @@
   <p>In this example, the navigation bar is hidden on small screens and replaced by a button in the top right corner (try to re-size this window).
   <p>Only when the button is clicked, the navigation bar will be displayed.</p>
 </div>
+
+<script type="text/javascript" src="/app_script/application.js"></script>
  <!-- Bootstrap core JavaScript
     ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <!-- AFTER LOAD SCRIPT -->
-<script type="text/javascript" src="/app_script/application.js"></script>
+
 <script>
-$('select').selectpicker();
+	//$('select').selectpicker();
 </script>
 </body>
 </html>
