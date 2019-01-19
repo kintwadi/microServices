@@ -20,82 +20,90 @@
 </head>
 <body >
 
-<nav class="navbar navbar-light ">
-
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#" id="brand"></a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-     
-      <ul class="nav navbar-nav navbar-right">
-      	 <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="categories"></span> <span class="caret"></span></a>
-          <ul class="dropdown-menu" id="category_container">
-            
-           
+ <nav class="navbar navbar-default">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Brand</a>
+        </div>
+    
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Works</a></li>
+            <li><a href="#">News</a></li>
+            <li><a href="#">Contact</a></li>
+            <li>
+              <a class="btn btn-default btn-outline btn-circle collapsed"  data-toggle="collapse" href="#nav-collapse1" aria-expanded="false" aria-controls="nav-collapse1">Categories</a>
+            </li>
           </ul>
-        </li>
-      	<li ><a href ="#"  ><span class="glyphicon glyphicon-earphone" id = "contact"></span></a></li>
-      	<li ><a href ="#" id = "facebook" ><span class="fa fa-facebook-square"></span></a></li>
-      	<li><a href ="#" id = "tweeter"><span class="fa fa-twitter-square"></span></a></li>
-      	<li><a href ="#" id = "instagram"><span class="fa fa-instagram"></span></a></li>
-      	<li><a href ="#" id = "youtube"><span class="fa fa-youtube"></span></a></li>
-        <li><a href="#"><span id="signup" class="glyphicon glyphicon-user"></span > </a></li>
-        <li><a href="#"><span id="login" class="glyphicon glyphicon-log-in"></span > </a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+          <ul class="collapse nav navbar-nav nav-collapse" id="nav-collapse1">
+            <li><a href="#">Web design</a></li>
+            <li><a href="#">Development</a></li>
+            <li><a href="#">Graphic design</a></li>
+            <li><a href="#">Print</a></li>
+            <li><a href="#">Motion</a></li>
+            <li><a href="#">Mobile apps</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container -->
+    </nav><!-- /.navbar -->
   
   
 <div class="container-fluid text-center">    
-  <div class="row content"  >
-    
-    <div class="col-sm-8 well "> 
-      <h1>Welcome</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 			ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod 			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      </p>
-      <hr>
-      <h3>Test</h3>
-      <p>Lorem ipsum...</p>
-    </div>
-    <div class="col-sm-4 sidenav">
-      <div class="well">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 			ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod 			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      </p> /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height:auto;} 
-    }
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 			ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod 			tempor incididunt ut labore et dolore 
-      </p>
+  <section class="intro">
+      <div class="left">
+        <div>
+          <span>Explore</span>
+          <h1>The Places Where You Will</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos eveniet amet excepturi voluptates dolorem totam ad quod hic, porro accusamus, repellat, corrupti at obcaecati ducimus, dolor quibusdam sequi nemo inventore?</p>
+          <a href="https://unsplash.com/" target="_blank">BIG EVENT</a>
+        </div>
       </div>
-      
-    </div>
-  </div>
 
+      <div class="slider">
+        <ul>
+          <li style="background-image:url(/images/m6.jpg)">
+            <div class="center-y">
+              <h3>Slider Title #1</h3>
+              <a href="#">View Project</a>	
+            </div>
+          </li>
+          <li style="background-image:url(/images/m5.jpg)">
+            <div class="center-y">
+              <h3>Slider Title #2</h3>
+              <a href="#">View Project</a>	
+            </div>
+          </li>
+          <li style="background-image:url(/images/m3.jpg)">
+            <div class="center-y">
+              <h3>Slider Title #3</h3>
+              <a href="#">View Project</a>	
+            </div>
+          </li>
+        </ul>
+
+        <ul>
+          <nav>
+            <a href="#"></a>
+            <a href="#"></a>
+            <a href="#"></a>
+          </nav>
+        </ul>
+      </div>
+	</section>
+<div class="container-fluid">
+  <h2>RECENTLY ADDED</h2>
 </div>
-
-<div class="container-fluid text-center">  
-  
-  <div class="row content well"  >
-    
-    <p>
-    	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    
-    </p>
-   
-  </div>
-
 </div>
 <!-- AFTER LOAD SCRIPT -->
 <script type="text/javascript" src="/app_script/application.js"></script>
