@@ -2,7 +2,7 @@
 var menuData = {
 
 		logo:"logo",
-		brand:"Bodadbue",
+		brand:"Bodasbue",
 		home: "home",
 		contact:"Contact:",
 		phone:" (49)124589660",
@@ -30,7 +30,7 @@ function MenuBar(data,lang){
 
 		brand.textContent = menu.data.brand;
 		//home.textContent = menu.data.home;
-		contact.textContent = menu.data.phone;
+		 contact.textContent = menu.data.phone;
 		login.textContent = menu.data.login;
 		signup.textContent = menu.data.signup;
 		categories.textContent = menu.data.categories;
@@ -66,7 +66,7 @@ function MenuBar(data,lang){
 
 				var categories = JSON.parse(this.responseText);
 
-				var category_container = document.getElementById("category_container");
+				var category_container = document.getElementById("nav-collapse1");
 
 				for(var i = 0; i< categories.length; i++ ){
 
@@ -74,7 +74,7 @@ function MenuBar(data,lang){
 					var a = document.createElement("a");
 					a.addEventListener('click',categoryListener,false);
 					a.param = categories;
-					a.innerHTML = categories[i]["name"].toUpperCase();
+					a.innerHTML = categories[i]["name"].toLowerCase();
 					a.setAttribute('class',"category");
 
 					li.appendChild(a);
@@ -104,7 +104,7 @@ function createApplicationLayout(lang){
 
 
 
-//createApplicationLayout("en");
+createApplicationLayout("en");
 
 
 {

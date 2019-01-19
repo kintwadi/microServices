@@ -30,29 +30,26 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Brand</a>
+          <a class="navbar-brand" href="#" id="brand">Brand</a>
         </div>
     
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Works</a></li>
-            <li><a href="#">News</a></li>
-            <li><a href="#">Contact</a></li>
-            <li>
-              <a class="btn btn-default btn-outline btn-circle collapsed"  data-toggle="collapse" href="#nav-collapse1" aria-expanded="false" aria-controls="nav-collapse1">Categories</a>
+           <li>
+              <a class="btn btn-default btn-outline btn-circle collapsed"  data-toggle="collapse" href="#nav-collapse1" aria-expanded="false" aria-controls="nav-collapse1" id ="categories">Categories</a>
             </li>
+            <li ><a href ="#"  ><span class="glyphicon glyphicon-earphone" id = "contact"></span></a></li>
+      	<li ><a href ="#" id = "facebook" ><span class="fa fa-facebook-square"></span></a></li>
+      	<li><a href ="#" id = "tweeter"><span class="fa fa-twitter-square"></span></a></li>
+      	<li><a href ="#" id = "instagram"><span class="fa fa-instagram"></span></a></li>
+      	<li><a href ="#" id = "youtube"><span class="fa fa-youtube"></span></a></li>
+        <li><a href="#"><span id="signup" class="glyphicon glyphicon-user"></span > </a></li>
+        <li><a href="#"><span id="login" class="glyphicon glyphicon-log-in"></span > </a></li>
+            
           </ul>
-          <ul class="collapse nav navbar-nav nav-collapse" id="nav-collapse1">
-            <li><a href="#">Web design</a></li>
-            <li><a href="#">Development</a></li>
-            <li><a href="#">Graphic design</a></li>
-            <li><a href="#">Print</a></li>
-            <li><a href="#">Motion</a></li>
-            <li><a href="#">Mobile apps</a></li>
+          <ul class="collapse nav navbar-nav nav-collapse navbar-right" id="nav-collapse1">
+            
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container -->
