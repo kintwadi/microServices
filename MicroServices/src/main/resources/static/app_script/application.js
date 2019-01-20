@@ -82,6 +82,14 @@ function MenuBar(data,lang){
 
 	}
 	
+	function getCurrencyCode (currencyCode){
+		
+		if(currencyCode.toLowerCase() == "eur"){
+			return "&#128;";
+		}
+		return "&#36;";
+	}
+	
 	this.creatBigCard = (command)=>{
 		
 		var url = "list_manager/"+command;
@@ -89,14 +97,22 @@ function MenuBar(data,lang){
 			
 			var big_card = document.querySelector("#big_card");
 			var big_card_title = document.querySelector("#big_card_title");
-			var big_card_date = document.querySelector("#big_card_date");
+			var big_card_year = document.querySelector("#big_card_year");
 			var big_card_start = document.querySelector("#big_card_start");
+			var big_card_day = document.querySelector("#big_card_day");
+			var big_card_month = document.querySelector("#big_card_month");
+			var big_card_price = document.querySelector("#big_card_price");
 			
 			big_card_title.textContent = data["manager"][0].title;
-			big_card_date.textContent = data["event"].day+"."+data["event"].month+"."+data["event"].year;
+			big_card_year.textContent = data["event"].year;
 			var image = "/images/"+data["manager"][0].imagePath;
 			
-			big_card_start.textContent = data["event"].start;
+			big_card_day.textContent = data["event"].day;
+			big_card_month.textContent = data["event"].month;
+			
+			//big_card_start.textContent = data["event"].start;
+			
+			big_card_price.innerHTML ="Fee: "+getCurrencyCode(data["event"].currencyCode)+" "+data["event"].price;
 			
 			big_card.setAttribute('style',"background-image: url("+image+")");
 			

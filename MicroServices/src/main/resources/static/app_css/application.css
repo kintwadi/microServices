@@ -96,7 +96,7 @@ a {
 	float: left;
 	height: 100%;
 	width: 60%;
-	padding: 3rem 3rem 3rem 5rem;
+	padding: 3rem 1rem 3rem 5rem;
 	display: table;
 }
 .left > div {
@@ -147,7 +147,7 @@ p + a {
 	position: relative;
 	margin-top:2%;
 	width: 40%;
-	height: 91%;
+	height: 99%;
 }
 .slider li {
 	position: absolute;

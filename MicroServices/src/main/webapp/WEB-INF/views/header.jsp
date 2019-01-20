@@ -15,7 +15,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
@@ -74,21 +74,35 @@
 	<div class="container-fluid text-center">
 		<section class="intro">
 		<div class="left">
-			
+
 			<div id="big_card">
-				
+
 				<a href="#" target="_blank"></a>
-				<div id="big_card_caption" class=" " role="alert">
-				
-					 
+				<div id="big_card_caption" class=" " >
 					
-					<div class="well">
-						<span id="big_card_title" class=" badge badge-light fa  fa-2x pull-left"></span>
-						<span id="big_card_date" class="badge badge-light fa  fa-2x "></span> 
-						<span id="big_card_start" class="badge badge-light fa  fa-2x "></span> 
+					<div class="card well  " style="width: 18rem; ">
+					
+						<span class=""  id="big_card_title">
+						
+						</span>
+						
+						<div class="card-body ">
+							
+							<div class="card-text">
+								
+								<h1 id="big_card_day" ></h1>
+								
+								<h2  class ="" id="big_card_month" ></h2>
+								<span class="" id="big_card_year" ></span>
+							</div>
+							
+						</div>
 					</div>
-
-
+					<div class ="big_card_more_info btn btn-info"  >
+						<span id="big_card_price" ></span> &nbsp;&nbsp;<i class="fa fa-shopping-cart btn btn-success"> add to cart</i>
+						
+					</div>
+					<span class="btn btn-danger"style="float: right; border-radius: 45px;">+</span>
 				</div>
 			</div>
 
@@ -99,19 +113,19 @@
 				<li style="background-image: url(/images/m6.jpg)">
 					<div class="center-y">
 						<h3>Slider Title #1</h3>
-						<a href="#">View Project</a>
+						<a href="#">read more</a>
 					</div>
 				</li>
-				<li style="background-image: url(/images/m5.jpg)">
+				<li style="background-image: url(/images/m7.jpg)">
 					<div class="center-y">
 						<h3>Slider Title #2</h3>
-						<a href="#">View Project</a>
+						<a href="#">read more</a>
 					</div>
 				</li>
 				<li style="background-image: url(/images/m3.jpg)">
 					<div class="center-y">
 						<h3>Slider Title #3</h3>
-						<a href="#">View Project</a>
+						<a href="#">read more</a>
 					</div>
 				</li>
 			</ul>
@@ -121,6 +135,9 @@
 			</ul>
 		</div>
 		</section>
+		<br>
+		<br>
+		<hr>
 		<div class="container-fluid">
 			<h2>RECENTLY ADDED</h2>
 		</div>
