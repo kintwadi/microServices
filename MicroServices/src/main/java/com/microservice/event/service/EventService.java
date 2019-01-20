@@ -6,7 +6,9 @@ import java.time.Month;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
@@ -294,8 +296,8 @@ public class EventService {
 
 			Event event = (Event) object;
 			event.setDate(date);
-			event.setMonth(month.name());
-			event.setDay(String.valueOf(day));
+			//event.setMonth(month.name());
+			//event.setDay(String.valueOf(day));
 
 			event.setHour(String.valueOf(hour));
 			event.setMinuts(String.valueOf(minuts));
@@ -354,6 +356,40 @@ public class EventService {
 			return response;	
 	
 	}
+	
+	public Response addManager(Object manager) {
+		
+		try {
+			dao.add(manager);
+			response.setMessage("manager added");
+		} catch (Response e) {
+		
+			response.setMessage(e.getLocalizedMessage());
+			System.out.print(e.getLocalizedMessage());
+		}
+		
+		
+		return response;
+	}
+	
+	
+	public Response getFromManager(Object manager,String criteria,String command) {
+		
+		List<Object> managers = dao.getAllByCriteria(manager,criteria, command);
+		Map<Object,Object>map = new HashMap<Object, Object>();
+		Manager m = (Manager)managers.get(0);
+	
+		Event event = (Event)dao.getById(new Event(), m.getEventId() );
+		
+		map.put("manager", managers);
+		map.put("event", event);
+		response.setMap(map);
+	
+		response.setReponseDataList(managers);
+		response.setMessage("list of managers");
+		return response;	
+
+}
 
 
 

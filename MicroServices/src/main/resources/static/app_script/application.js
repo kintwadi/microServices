@@ -21,16 +21,16 @@ function MenuBar(data,lang){
 
 	this.writeMenuContent = (menu,lang)=>{
 
-		var brand = document.getElementById("brand");
+		var brand = document.querySelector("#brand");
 		//var home = document.getElementById("home");
-		var contact = document.getElementById("contact");
-		var login = document.getElementById("login");
-		var signup = document.getElementById("signup");
-		var categories = document.getElementById("categories");
+		var contact = document.querySelector("#contact");
+		var login = document.querySelector("#login");
+		var signup = document.querySelector("#signup");
+		var categories = document.querySelector("#categories");
 
 		brand.textContent = menu.data.brand;
 		//home.textContent = menu.data.home;
-		 contact.textContent = menu.data.phone;
+		contact.textContent = menu.data.phone;
 		login.textContent = menu.data.login;
 		signup.textContent = menu.data.signup;
 		categories.textContent = menu.data.categories;
@@ -40,16 +40,16 @@ function MenuBar(data,lang){
 
 	function categoryListener (e){
 
-		var a = document.getElementsByClassName("category");	
+		var a = document.querySelector(".category");	
 		var categories = a[0].param;
 		for(var i = 0; i< categories.length; i++ ){
 
 			if(flag){
-				a = document.getElementsByClassName("category");
+				a = document.querySelector(".category");
 				a[i].setAttribute('href',"category/"+categories[i]["page"]);
 				flag = false;
 			}else{
-				a = document.getElementsByClassName("category");
+				a = document.querySelector("category");
 				a[i].setAttribute('href',categories[i]["page"]);
 
 			}
@@ -59,56 +59,75 @@ function MenuBar(data,lang){
 
 	this.listCategories = (menu,lang)=>{
 
-		var xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange=function() {
+		var url = "list_categories/"+lang;
+		
+		$.get(url, function(data, status){
 
-			if (this.readyState == 4 && this.status == 200) {
+			var categories = data;
 
-				var categories = JSON.parse(this.responseText);
+			var category_container = document.querySelector("#nav-collapse1");
 
-				var category_container = document.getElementById("nav-collapse1");
+			for(var i = 0; i< categories.length; i++ ){
 
-				for(var i = 0; i< categories.length; i++ ){
+				var li = document.createElement("li");
+				var a = document.createElement("a");
+				a.addEventListener('click',categoryListener,false);
+				a.param = categories;
+				a.innerHTML = categories[i]["name"].toLowerCase();
+				a.setAttribute('class',"category");
+				li.appendChild(a);
+				category_container.appendChild(li);
+			};
+		});
 
-					var li = document.createElement("li");
-					var a = document.createElement("a");
-					a.addEventListener('click',categoryListener,false);
-					a.param = categories;
-					a.innerHTML = categories[i]["name"].toLowerCase();
-					a.setAttribute('class',"category");
-
-					li.appendChild(a);
-					category_container.appendChild(li);
-				}
-
-			}
-		};
-		xhttp.open("GET", "list_categories/"+lang, true);
-		xhttp.send();
 	}
-
+	
+	this.creatBigCard = (command)=>{
+		
+		var url = "list_manager/"+command;
+		$.get(url, function(data, status){
+			
+			var big_card = document.querySelector("#big_card");
+			var big_card_title = document.querySelector("#big_card_title");
+			var big_card_date = document.querySelector("#big_card_date");
+			var big_card_start = document.querySelector("#big_card_start");
+			
+			big_card_title.textContent = data["manager"][0].title;
+			big_card_date.textContent = data["event"].day+"."+data["event"].month+"."+data["event"].year;
+			var image = "/images/"+data["manager"][0].imagePath;
+			
+			big_card_start.textContent = data["event"].start;
+			
+			big_card.setAttribute('style',"background-image: url("+image+")");
+			
+			
+			console.log("data: "+data["manager"][0].id);
+			console.log("data: "+data["event"].start);
+			//console.log("status: "+status);//background-image: url('/images/m5.jpg')
+			
+		});
+	}
 }
 
-function createApplicationLayout(lang){
+	function createApplicationLayout(lang){
 
-	var menu = null ;
-	// setup the language
-	if(lang == "en"){
+		var menu = null ;
+		// setup the language
+		if(lang == "en"){
 
-		menu = new MenuBar(menuData);
-		menu.listCategories(menu,lang);
-		menu.writeMenuContent(menu,lang);
+			menu = new MenuBar(menuData);
+			menu.listCategories(menu,lang);
+			menu.writeMenuContent(menu,lang);
+			menu.creatBigCard("big_card");
+			const slider = new SliderClip(document.querySelector('.slider'));
+			
+		}
+
 	}
 
-}
 
-
-
-createApplicationLayout("en");
-
-
-{
 	class SliderClip {
+
 		constructor(el) {
 			this.el = el;
 			this.Slides = Array.from(this.el.querySelectorAll('li'));
@@ -168,8 +187,11 @@ createApplicationLayout("en");
 		}
 	}
 
-	const slider = new SliderClip(document.querySelector('.slider'));
-}
+	createApplicationLayout("en");
+
+	
+
+
 
 
 

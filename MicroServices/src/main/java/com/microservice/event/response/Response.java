@@ -1,6 +1,7 @@
 package com.microservice.event.response;
 
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,6 +26,7 @@ public class Response extends Exception{
 	private String view;
 	private Object responseData;
 	private List<Object>reponseDataList;
+	private Map<Object, Object> map;
 	private static Logger logger = null;
 
 
@@ -77,10 +79,18 @@ public class Response extends Exception{
 	public void setReponseDataList(List<Object> reponseDataList) {
 		this.reponseDataList = reponseDataList;
 	}
+	
+	
+	public Map<Object, Object> getMap() {
+		return map;
+	}
+	public void setMap(Map<Object, Object> map) {
+		this.map = map;
+	}
 	@Override
 	public String toString() {
 		return "Response [status=" + status + ", message=" + message + ", txDate=" + txDate + ", view=" + view
-				+ ", responseData=" + responseData + ", reponseDataList=" + reponseDataList + "]";
+				+ ", responseData=" + responseData + ", reponseDataList=" + reponseDataList + ", map=" + map + "]";
 	}
 	
 	

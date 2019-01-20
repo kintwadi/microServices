@@ -1,6 +1,7 @@
 package com.microservice.event.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -40,6 +41,9 @@ public class HomeController {
 	
 	@Autowired
 	private Category category;
+	
+	@Autowired
+	private Manager manager;
 
 	@RequestMapping("/")
 	public String initializer( @ModelAttribute User user,Model model,HttpSession session) {
@@ -134,9 +138,7 @@ public class HomeController {
 	@PostMapping("/register_event/{eventOwnerEmail:.+}")
 	@ResponseBody
 	public String registerEvent(@RequestBody Event event,@PathVariable("eventOwnerEmail")String eventOwnerEmail, Model model) {
-
-		System.out.println("eventOwnerEmail: "+ eventOwnerEmail);
-		System.out.println("event: "+event.toString());
+		
 		user.setEmail(eventOwnerEmail);
 		Response response = service.addEvent(user,event);
 		return response.getStatus();
@@ -193,6 +195,23 @@ public class HomeController {
 		Response response = service.bookEvent(joinEvent);
 		
 		return response.getMessage();
+	}
+	@PostMapping("/add_to_manager")
+	@ResponseBody
+	public String addToManager(@RequestBody Manager manager) {
+		
+		Response response = service.addManager(manager);
+		return response.getMessage();
+		
+	}
+	
+	@GetMapping("/list_manager/{command}")
+	@ResponseBody
+	public Map<Object,Object> listManager(@PathVariable String command) {
+		
+		Response response = service.getFromManager(manager, "command", command);
+		return response.getMap();
+		
 	}
 	
 	@RequestMapping("/gethome")

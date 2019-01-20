@@ -44,6 +44,7 @@ public class EventDetails {
 	private String seconds;
 	private String start;
 	private String end;
+	private String year;
 	private double price;
 	private String currencyCode;
 	
@@ -354,14 +355,27 @@ public class EventDetails {
 
 
 
+	public String getYear() {
+		return year;
+	}
+
+
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "EventDetails [eventId=" + eventId + ", country=" + country + ", city=" + city + ", street=" + street
 				+ ", reference=" + reference + ", numberOfSeats=" + numberOfSeats + ", seatStyle=" + seatStyle
 				+ ", lat=" + lat + ", longe=" + longe + ", date=" + date + ", month=" + month + ", day=" + day
 				+ ", hour=" + hour + ", minuts=" + minuts + ", seconds=" + seconds + ", start=" + start + ", end=" + end
-				+ ", price=" + price + ", currencyCode=" + currencyCode + ", user=" + user + ", images=" + images
-				+ ", comments=" + comments + ", likes=" + likes + ", joiningEvent=" + joiningEvent + "]";
+				+ ", year=" + year + ", price=" + price + ", currencyCode=" + currencyCode + ", user=" + user
+				+ ", images=" + images + ", comments=" + comments + ", likes=" + likes + ", joiningEvent="
+				+ joiningEvent + "]";
 	}
 	
 	
