@@ -214,6 +214,15 @@ public class HomeController {
 		
 	}
 	
+	@GetMapping("/recently_added")
+	@ResponseBody
+	public List<Object> recentlyAdded() {
+		
+		Response response = service.addedRecently(event);
+		return response.getReponseDataList();
+		
+	}
+	
 	@RequestMapping("/gethome")
 	public String goHome() {
 		

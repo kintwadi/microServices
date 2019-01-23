@@ -22,11 +22,16 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
+ <script src="/app_script/jquery.twbsPagination.js" type="text/javascript"></script>
+    <!-- Material Design Bootstrap -->
+<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.0/css/mdb.min.css" rel="stylesheet"> --> 
+
 
 </head>
 <body>
 
-	<nav class="navbar navbar-default"> <span id="brand" class=""
+	<nav class="navbar navbar-default navbar-fixed-top" > <span id="brand" class=""
 		style="float: left; border-radius: 5px; margin-top: 5px;"></span>
 	<div class="container">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -73,8 +78,24 @@
 	</div>
 	<!-- /.container --> </nav>
 	<!-- /.navbar -->
+	
+<br><br><br>
+<div class="search">
+
+	 <div class="col-lg-10  ">
+    <div class="input-group ">
+      <input type="text" class="form-control" aria-label=" search..." placeholder="search...">
+      <span class="input-group-addon">
+        <span class="fa fa-search  " ></span>
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+
+</div>
 
 
+<br><br>
 	<div class="container-fluid text-center">
 
 		<section class="intro">

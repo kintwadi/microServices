@@ -1,10 +1,13 @@
 package com.microservice.event.service;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -38,9 +41,9 @@ import com.microservice.event.response.Validator;
 public class EventService {
 	@Autowired
 	private IEventBookingDao dao;
-	 @Autowired
+	@Autowired
 	private Response response ;
-	
+
 	@Autowired
 	private Environment env;
 
@@ -250,15 +253,15 @@ public class EventService {
 	public Response joinEvent(JoinEvent joinEvent) {
 
 		buildTransactionPedriod(joinEvent);
-	
-			try {
-				dao.add(joinEvent);
-				response.setMessage("event joined ");
-			} catch (Response e) {
-				
-				e.printStackTrace();
-			}
-			
+
+		try {
+			dao.add(joinEvent);
+			response.setMessage("event joined ");
+		} catch (Response e) {
+
+			e.printStackTrace();
+		}
+
 
 		return response;
 	}
@@ -266,18 +269,18 @@ public class EventService {
 	public Response bookEvent(JoinEvent joinEvent) {
 
 		buildTransactionPedriod(joinEvent);
-		
-				dao.update(joinEvent);
-				response.setMessage("event booked on update");
+
+		dao.update(joinEvent);
+		response.setMessage("event booked on update");
 
 		return response;
 	}
-	
+
 	public Response addSeat(JoinEvent joinEvent){
-		
-		
+
+
 		return null;
-		
+
 	}
 
 
@@ -333,63 +336,130 @@ public class EventService {
 
 
 	public Response addCategories(Category category) {
-		
-		
-			try {
-				dao.add(category);
-				response.setMessage(getMessage("category.add.success"));
-				
-			} catch (Response e) {
-				
-				response.setMessage(getMessage("category.add.error"));
-				e.printStackTrace();
-			}
-			
-			return response;
-		
+
+
+		try {
+			dao.add(category);
+			response.setMessage(getMessage("category.add.success"));
+
+		} catch (Response e) {
+
+			response.setMessage(getMessage("category.add.error"));
+			e.printStackTrace();
+		}
+
+		return response;
+
 	}
 	public Response listCategories(Object category,String criteria,String lang) {
-	
-			List<Object> categories = dao.getAllByCriteria(category,criteria, lang);
-			response.setReponseDataList(categories);
-			response.setMessage("list of categories");
-			return response;	
-	
+
+		List<Object> categories = dao.getAllByCriteria(category,criteria, lang);
+		response.setReponseDataList(categories);
+		response.setMessage("list of categories");
+		return response;	
+
 	}
-	
+
 	public Response addManager(Object manager) {
-		
+
 		try {
 			dao.add(manager);
 			response.setMessage("manager added");
 		} catch (Response e) {
-		
+
 			response.setMessage(e.getLocalizedMessage());
 			System.out.print(e.getLocalizedMessage());
 		}
-		
-		
+
+
 		return response;
 	}
-	
-	
+
+
 	public Response getFromManager(Object manager,String criteria,String command) {
-		
+
 		List<Object> managers = dao.getAllByCriteria(manager,criteria, command);
 		Map<Object,Object>map = new HashMap<Object, Object>();
 		Manager m = (Manager)managers.get(0);
-	
+
 		Event event = (Event)dao.getById(new Event(), m.getEventId() );
-		
+
 		map.put("manager", managers);
 		map.put("event", event);
 		response.setMap(map);
-	
+
 		response.setReponseDataList(managers);
 		response.setMessage("list of managers");
 		return response;	
 
-}
+	}
+
+	public Response addedRecently(Event evt) {
+
+		List<Object> obj = dao.getAll(evt);
+		List<Object>events = new ArrayList<Object>();
+		Date crrentDate = new Date();
+		Calendar cal = Calendar.getInstance();
+		
+		cal.setTime(crrentDate);
+		int currentYear = cal.get(Calendar.YEAR);
+		int currentMonth = cal.get(crrentDate.getMonth());
+		int currentDay = cal.get(Calendar.DAY_OF_MONTH);
+
+		System.out.println("size: "+obj.size());
+
+		System.out.println("currentYear: "+currentYear);
+		System.out.println("currentMonth : "+currentMonth );
+		System.out.println("currentDay:  "+currentDay);
+		for(int i = 0; i< obj.size(); i++){
+
+			Event event = (Event) obj.get(i); 
+			String month = event.getMonth().toUpperCase();
+			System.out.println("aqui: "+month);
+			int eventYear = Integer.parseInt(event.getYear().toUpperCase()); 
+			int eventMonth = getMonth(month); 
+			int eventDay = Integer.parseInt(event.getDay().toUpperCase());
+			
+			
+
+			LocalDate dateBefore = LocalDate.of(currentYear, currentMonth, currentDay);
+
+			LocalDate dateAfter = LocalDate.of(eventYear, eventMonth, eventDay);
+
+			long noOfDaysBetween = ChronoUnit.DAYS.between(dateBefore, dateAfter);
+
+			if(noOfDaysBetween <= 7) {
+
+				events.add(event);
+
+			} 
+
+		}
+
+
+		response.setReponseDataList(events);
+		return response;
+
+	}
+	
+	private int getMonth(String month) {
+		Map<String,Integer> map = new HashMap<String, Integer>();
+		
+		 map.put("January".toUpperCase(),1);
+	     map.put("February".toUpperCase(),2);
+	     map.put("March".toUpperCase(),3);
+	     map.put("April".toUpperCase(),4);
+	     map.put("May".toUpperCase(),5);
+	     map.put("June".toUpperCase(),6);
+	     map.put("July".toUpperCase(),7);
+	     map.put("August".toUpperCase(),8);
+	     map.put("September".toUpperCase(),9);
+	     map.put("October".toUpperCase(),10);
+	     map.put("November".toUpperCase(),11);
+	     map.put("December".toUpperCase(),12);
+	     return map.get(month);
+	  
+	}
 
 
 
