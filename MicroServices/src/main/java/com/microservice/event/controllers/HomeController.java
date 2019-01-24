@@ -214,6 +214,8 @@ public class HomeController {
 		
 	}
 	
+	
+	
 	@GetMapping("/recently_added")
 	@ResponseBody
 	public List<Object> recentlyAdded() {
@@ -222,6 +224,26 @@ public class HomeController {
 		return response.getReponseDataList();
 		
 	}
+	
+	@GetMapping("/featured/{command}")
+	@ResponseBody
+	public List<Object> featured(@PathVariable String command) {
+		
+		Response response = service.featured(manager, "command", command);
+		return response.getReponseDataList();
+		
+	}
+	
+	@GetMapping("/mainEvents/{command}")
+	@ResponseBody
+	public List<Object> main(@PathVariable String command) {
+		
+		Response response = service.mainEvents(manager, "command", command);
+		return response.getReponseDataList();
+		
+	}
+	
+	
 	
 	@RequestMapping("/gethome")
 	public String goHome() {

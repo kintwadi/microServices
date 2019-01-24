@@ -25,14 +25,15 @@
 	
  <script src="/app_script/jquery.twbsPagination.js" type="text/javascript"></script>
     <!-- Material Design Bootstrap -->
-<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.0/css/mdb.min.css" rel="stylesheet"> --> 
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.0/css/mdb.min.css" rel="stylesheet"> 
 
 </head>
-<body>
-
-	<nav class="navbar navbar-default navbar-fixed-top" > <span id="brand" class=""
-		style="float: left; border-radius: 5px; margin-top: 5px;"></span>
+<body >
+<div class="container"> 
+	<nav class="navbar  navbar-default navbar-fixed-top" > 
+	
+	<span id="brand" class="" style="float: left; border-radius: 5px; margin-top: 5px;"></span>
+	
 	<div class="container">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
@@ -96,7 +97,7 @@
 
 
 <br><br>
-	<div class="container-fluid text-center">
+	<div class="container text-center">
 
 		<section class="intro">
 		<div class="left">
@@ -169,5 +170,6 @@
 	
 	<!-- AFTER LOAD SCRIPT -->
 	<script type="text/javascript" src="/app_script/application.js"></script>
+	</div>
 </body>
 </html>

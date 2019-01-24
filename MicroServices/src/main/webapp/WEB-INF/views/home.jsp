@@ -16,35 +16,39 @@
 </head>
 <body>
 	<br>
-	<div class="container-fluid">
+	<div class="container" id="cardsContainer">
 		
-		
-		<h2>RECENTLY ADDED</h2>
-		<div class="panel panel-default">
-		<h4 style="float: right;" class="btn btn-default ">View all</h4>
+	<!-- 	<h4 style="float: right;" class="btn btn-default ">View all</h4>
+		<h2 class="btn btn-default ">RECENTLY ADDED</h2>
+		 -->
+	<!-- 	<div class="panel panel-default">
+
 			<div class="panel-body">
 
-
-
 				<div class="container">
+				
 					<div id="pageContent"></div>
+					
 				</div>
+				
 				<div class="row">
+				
 					<div class="col-sm-12">
 
-						<ul id="pagination-added-recently"
-							class="pagination sm pagination-circle pg-blue">
+						<ul id="pagination-added-recently" class="pagination sm pagination-circle pg-blue">
 
 						</ul>
+						
 					</div>
 				</div>
 			</div>
+			
 			<div class="panel-footer clearfix">
 				<div class="pull-right">
 					<a href="#"></a> <a href="#" class="btn btn-default">top</a>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 	</div>
 
@@ -80,14 +84,92 @@
 			last : 'Last',
 			onPageClick : function(event, page) {
 				//fetch content and render here
-				added(page);
+				//added(page);
 
 			}
 		});
+		
+		
+		
+		 function createPanel(data,containerId, labelText, viewAllId,viewAllText ){
+
+			 
+		      var outerContainer = document.querySelector(containerId);
+		      
+		      var label = document.createElement("h1");
+		      
+		      label.setAttribute('class',"btn btn-default ");
+		      label.setAttribute('style',"float: right;");
+		      label.setAttribute('id',viewAllId);
+		      var text = document.createTextNode(viewAllText);
+		      
+		      label.appendChild(text);
+		      
+		      outerContainer.appendChild(label);
+		      
+		      
+		      label = document.createElement("h1");
+		      label.setAttribute('class',"btn btn-default ");
+		      text = document.createTextNode(labelText);
+		      
+		      label.appendChild(text);
+		      
+		      outerContainer.appendChild(label);
+		      
+		      
+		      
+		      var panel = document.createElement("div");
+		      panel.setAttribute('class','panel panel-default');
+		      var panelBody = document.createElement("div");
+		      panelBody.setAttribute('class',"panel-body");
+		      var innerContainer = document.createElement("div");
+		      innerContainer.setAttribute('class',"container");
+		      
+		      var content = document.createElement("div");
+		
+		      innerContainer.appendChild(content);
+		      panelBody.appendChild(innerContainer);
+		      panel.appendChild(panelBody);
+		      outerContainer.appendChild(panel);
+		      
+		      var index = 1;
+		      
+			for (let i = 0; i < data.length; i++) {
+				
+				
+				var card = document.createElement("div");
+				card.setAttribute('class', "card well");
+				card.setAttribute('style', "width:270px; display:inline-block;padding:5px;float:left");
+				
+				var cardImage = document.createElement("img");
+				cardImage.setAttribute('class', "card-img-top img-rounded");
+				cardImage.setAttribute('style',"width:260px;height:340px;margin: 0 auto;");
+				
+				
+				cardImage.src ="/images/m"+index+".jpg";
+				index++;
+				cardImage.setAttribute('alt', "image");
+				card.appendChild(cardImage);
+				
+				var cardBody = document.createElement("div");
+				cardBody.setAttribute('class', "card-body");
+
+				cardBody.innerHTML += "day: " + data[i].day + "<br>";
+				cardBody.innerHTML += "month: " + data[i].month + "<br>";
+				cardBody.innerHTML += "year: " + data[i].year;
+				card.appendChild(cardBody);
+				content.appendChild(card);
+
+			}
+		      
+		      
+		    }
 
 		function createCard(data) {
 			var index = 1;
 			var pageContent = document.querySelector('#pageContent');
+			console.log(data.length);
+			
 			for (let i = 0; i < data.length; i++) {
 				
 				
@@ -118,26 +200,56 @@
 
 		}
 
-		function list() {
+		function listAddedRecently() {
 
 			var url = "recently_added";
 
 			$.get(url, function(data, status) {
 
-				createCard(data);
-				for (let i = 0; i < data.length; i++) {
 
-					console.log(data[i].day);
-					console.log(data[i].month);
-					console.log(data[i].year);
-					console.log(data[i].price);
-
-				}
+				createPanel(data,"#cardsContainer","RECENTLY ADDED","recently_added_id","VIEW ALL");
+			
+			
 
 			});
 
 		}
-		list();
+		
+		
+		function featured(command ) {
+
+			
+			var url = "featured/"+command;
+
+			$.get(url, function(data, status) {
+
+		
+				createPanel(data,"#cardsContainer","FEATURED","featured_id","VIEW ALL");
+			
+
+			});
+
+		}
+		
+	function mainEvents(command ) {
+
+			
+			var url = "mainEvents/"+command;
+
+			$.get(url, function(data, status) {
+
+		
+				createPanel(data,"#cardsContainer","MAIN EVENTS","main_events_id","VIEW ALL");
+			
+
+			});
+
+		}
+	
+		
+		listAddedRecently();
+		featured("featured");
+		mainEvents("mainEvents");
 	</script>
 </body>
 </html>

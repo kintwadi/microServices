@@ -299,9 +299,6 @@ public class EventService {
 
 			Event event = (Event) object;
 			event.setDate(date);
-			//event.setMonth(month.name());
-			//event.setDay(String.valueOf(day));
-
 			event.setHour(String.valueOf(hour));
 			event.setMinuts(String.valueOf(minuts));
 			event.setSeconds(String.valueOf(seconds));
@@ -407,21 +404,18 @@ public class EventService {
 		int currentDay = cal.get(Calendar.DAY_OF_MONTH);
 
 		System.out.println("size: "+obj.size());
-
 		System.out.println("currentYear: "+currentYear);
 		System.out.println("currentMonth : "+currentMonth );
 		System.out.println("currentDay:  "+currentDay);
+		
 		for(int i = 0; i< obj.size(); i++){
 
 			Event event = (Event) obj.get(i); 
 			String month = event.getMonth().toUpperCase();
-			System.out.println("aqui: "+month);
 			int eventYear = Integer.parseInt(event.getYear().toUpperCase()); 
 			int eventMonth = getMonth(month); 
 			int eventDay = Integer.parseInt(event.getDay().toUpperCase());
 			
-			
-
 			LocalDate dateBefore = LocalDate.of(currentYear, currentMonth, currentDay);
 
 			LocalDate dateAfter = LocalDate.of(eventYear, eventMonth, eventDay);
@@ -441,6 +435,49 @@ public class EventService {
 		return response;
 
 	}
+	
+	
+	
+	public Response featured(Manager manager,String criteria,String command) {
+
+		List<Object> managers = dao.getAllByCriteria(manager,criteria, command);
+		List<Object>events = new ArrayList<Object>();
+	
+		for(int i = 0; i< managers.size(); i++){
+
+			manager = (Manager) managers.get(i); 
+			Event event = (Event)dao.getById(new Event(), manager.getEventId());
+			if(event != null)events.add(event);
+
+		}
+
+		
+		response.setReponseDataList(events);
+		return response;
+
+	}
+	
+
+	public Response mainEvents(Manager manager,String criteria,String command) {
+
+		List<Object> managers = dao.getAllByCriteria(manager,criteria, command);
+		List<Object>events = new ArrayList<Object>();
+	
+		for(int i = 0; i< managers.size(); i++){
+
+			manager = (Manager) managers.get(i); 
+			Event event = (Event)dao.getById(new Event(), manager.getEventId());
+			if(event != null)events.add(event);
+
+		}
+
+		
+		response.setReponseDataList(events);
+		return response;
+
+	}
+	
+	
 	
 	private int getMonth(String month) {
 		Map<String,Integer> map = new HashMap<String, Integer>();
