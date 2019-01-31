@@ -214,8 +214,6 @@ public class HomeController {
 		
 	}
 	
-	
-	
 	@GetMapping("/recently_added")
 	@ResponseBody
 	public List<Object> recentlyAdded() {
@@ -242,8 +240,6 @@ public class HomeController {
 		return response.getReponseDataList();
 		
 	}
-	
-	
 	
 	@RequestMapping("/gethome")
 	public String goHome() {
