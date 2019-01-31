@@ -36,7 +36,7 @@ public class MicroServiceStart {
 	private Connector redirectConnectorHttp() {
 		Connector redirectConnector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
 		redirectConnector.setScheme("http");
-		redirectConnector.setPort(8080);
+		redirectConnector.setPort(8383);
 		redirectConnector.setSecure(false);
 		redirectConnector.setRedirectPort(8181);
 		return redirectConnector;
