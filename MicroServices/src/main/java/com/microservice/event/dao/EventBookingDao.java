@@ -134,6 +134,14 @@ public class EventBookingDao implements IEventBookingDao {
 		return query.list().get(0);
 	}
 	
+	@Override
+	public void closeSessionFactory(){
+		if(factory!= null && factory.getCurrentSession().isConnected()){
+			factory.getCurrentSession().close();
+			factory.close();
+		}
+		
+	}
 	
 
 

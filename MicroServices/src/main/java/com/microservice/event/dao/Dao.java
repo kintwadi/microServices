@@ -7,10 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import com.microservice.event.model.User;
 
-@Repository
 public class Dao {
 
-	@Autowired
+	/*@Autowired
 	private SessionFactory sessionFactory;
 	
    public void save(User user) {
@@ -24,5 +23,5 @@ public class Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-   }
+   }*/
 }

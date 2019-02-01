@@ -16,6 +16,9 @@ public interface IEventBookingDao {
 	public void update(Object object);
 	public void remove(Object object);
 	public Object getElementByFieldName(String className,String field, String value);
+	public void closeSessionFactory();
+	
+	
 	
 
 }

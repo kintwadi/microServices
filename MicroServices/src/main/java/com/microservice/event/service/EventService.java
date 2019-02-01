@@ -78,6 +78,7 @@ public class EventService {
 			response.setLogger(user.getClass().getName(), response.getMessage(), "severe");
 		}
 
+		dao.closeSessionFactory();
 		return response;
 	}
 	public Response updateUser(User user) {
@@ -110,6 +111,7 @@ public class EventService {
 			response.setLogger(user.getClass().getName(), response.getMessage(), "severe");
 		}
 
+		dao.closeSessionFactory();
 		return response;
 	}
 
@@ -144,6 +146,7 @@ public class EventService {
 			response.setLogger(user.getClass().getName(), response.getMessage(), "severe");
 		}
 
+		dao.closeSessionFactory();
 		return response;
 	}
 
@@ -158,12 +161,14 @@ public class EventService {
 		List<Object> users = dao.getAll(user);
 		response.setReponseDataList(users);
 		response.setMessage("list of users");
+		dao.closeSessionFactory();
 		return response;	
 	}
 	public Response getUser(User user,long id){
 		user = (User) dao.getById(user, id);
 		response.setResponseData(user);
 		response.setMessage("single  user");
+		dao.closeSessionFactory();
 		return response;	
 	}
 
@@ -215,18 +220,21 @@ public class EventService {
 
 			e.printStackTrace();
 		}
+		dao.closeSessionFactory();
 		return response;
 	}
 
 	public Response updateEvent(Event event) {
 		dao.update(event);
 		response.setStatus("event updated");
+		dao.closeSessionFactory();
 		return response;
 	}
 
 	public Response deleteEvent(Event event) {
 		dao.remove(event);
 		response.setStatus("event added");
+		dao.closeSessionFactory();
 		return response;
 	}
 
@@ -234,12 +242,16 @@ public class EventService {
 
 		response.setResponseData(dao.getElementByFieldName(className, field, value));
 		response.setStatus("success");
+		dao.closeSessionFactory();
 		return response;
 
 	}
 
 	public Object getById(Object object,long id) {
-		return  dao.getById(object, id);
+		
+		response.setResponseData( dao.getById(object, id));
+		dao.closeSessionFactory();
+		return response.getResponseData();
 	}
 
 
@@ -262,7 +274,7 @@ public class EventService {
 			e.printStackTrace();
 		}
 
-
+		dao.closeSessionFactory();
 		return response;
 	}
 
@@ -273,6 +285,7 @@ public class EventService {
 		dao.update(joinEvent);
 		response.setMessage("event booked on update");
 
+		dao.closeSessionFactory();
 		return response;
 	}
 
@@ -345,6 +358,7 @@ public class EventService {
 			e.printStackTrace();
 		}
 
+		dao.closeSessionFactory();
 		return response;
 
 	}
@@ -353,6 +367,7 @@ public class EventService {
 		List<Object> categories = dao.getAllByCriteria(category,criteria, lang);
 		response.setReponseDataList(categories);
 		response.setMessage("list of categories");
+		dao.closeSessionFactory();
 		return response;	
 
 	}
@@ -368,7 +383,7 @@ public class EventService {
 			System.out.print(e.getLocalizedMessage());
 		}
 
-
+		dao.closeSessionFactory();
 		return response;
 	}
 
@@ -387,6 +402,7 @@ public class EventService {
 
 		response.setReponseDataList(managers);
 		response.setMessage("list of managers");
+		dao.closeSessionFactory();
 		return response;	
 
 	}
@@ -432,6 +448,7 @@ public class EventService {
 
 
 		response.setReponseDataList(events);
+		dao.closeSessionFactory();
 		return response;
 
 	}
@@ -453,6 +470,7 @@ public class EventService {
 
 		
 		response.setReponseDataList(events);
+		dao.closeSessionFactory();
 		return response;
 
 	}
@@ -473,6 +491,7 @@ public class EventService {
 
 		
 		response.setReponseDataList(events);
+		dao.closeSessionFactory();
 		return response;
 
 	}
