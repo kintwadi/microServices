@@ -25,6 +25,8 @@ public class UserDetails {
 	private String country;
 	private String city;
 	private String street;
+	private String profile;
+	private boolean active;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy ="user", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
@@ -55,6 +57,9 @@ public class UserDetails {
 		this.street = street;
 	}
 	public UserDetails() {
+		
+		setProfile("basic");
+		setActive(true);
 	
 	}
 	public long getId() {
@@ -121,11 +126,25 @@ public class UserDetails {
 	public void setLikes(List<Like> likes) {
 		this.likes = likes;
 	}
+	
+	public String getProfile() {
+		return profile;
+	}
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+	
+	public boolean isActive() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 	@Override
 	public String toString() {
 		return "UserDetails [userId=" + userId + ", cellphone=" + cellphone + ", country=" + country + ", city=" + city
-				+ ", street=" + street + ", events=" + events + ", comments=" + comments + ", likes=" + likes
-				+ ", joiningEvent=" + joiningEvent + "]";
+				+ ", street=" + street + ", profile=" + profile + ", active=" + active + ", events=" + events
+				+ ", comments=" + comments + ", likes=" + likes + ", joiningEvent=" + joiningEvent + "]";
 	}
 	
 	

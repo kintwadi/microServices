@@ -131,7 +131,7 @@ public class HomeController {
 		Response response = service.getElementByFieldName("User", "email", email);
 		System.out.println(response.getResponseData().toString());
 		
-		return (User)service.getElementByFieldName("User", "email", email).getResponseData();
+		return (User)response.getResponseData();
 	}
 
 	//EventsJoinEvent
@@ -205,11 +205,12 @@ public class HomeController {
 		
 	}
 	
-	@GetMapping("/list_manager/{command}")
+	@GetMapping("/get_big_card/{command}")
 	@ResponseBody
 	public Map<Object,Object> listManager(@PathVariable String command) {
 		
 		Response response = service.getFromManager(manager, "command", command);
+		System.out.println("manager: "+response.getMap().toString());
 		return response.getMap();
 		
 	}

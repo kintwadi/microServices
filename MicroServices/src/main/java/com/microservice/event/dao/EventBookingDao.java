@@ -136,10 +136,10 @@ public class EventBookingDao implements IEventBookingDao {
 	
 	@Override
 	public void closeSessionFactory(){
-		if(factory!= null && factory.getCurrentSession().isConnected()){
+	/*	if(factory!= null && factory.getCurrentSession().isConnected()){
 			factory.getCurrentSession().close();
-			factory.close();
-		}
+			//factory.close();
+		}*/
 		
 	}
 	
