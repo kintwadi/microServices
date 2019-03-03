@@ -1,5 +1,6 @@
 package com.microservice.event.service;
 
+import java.awt.color.ProfileDataException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -63,6 +64,10 @@ public class EventService {
 		try {
 
 			dao.add(user);
+			Profile profile = new Profile();
+			profile.setUser(user);
+			dao.add(profile);
+			
 			response.setStatus(getMessage("user.update.success")+ user.getClass());
 			response.setMessage("operation success ");
 			response.setTxDate(new SimpleDateFormat("dd/mm/yyyy HH:mm:ss a").format(new Date()));
@@ -92,26 +97,15 @@ public class EventService {
 			response.setView("home");
 			return response;	
 		}
-
-		try {
-
-			dao.add(user);
-			response.setStatus(getMessage("user.update.success")+ user.getClass());
-			response.setMessage("operation success ");
-			response.setTxDate(new SimpleDateFormat("dd/mm/yyyy HH:mm:ss a").format(new Date()));
-			response.setView("home");
-			response.setResponseData(user);
-			return response;
-
-		} catch (Response ex) {
-
-			response.setStatus(getMessage("user.update.error")+ user.getClass());
-			response.setMessage(ex.getLocalizedMessage());
-			response.setTxDate(new SimpleDateFormat("dd/mm/yyyy HH:mm:ss a").format(new Date()));
-			response.setLogger(user.getClass().getName(), response.getMessage(), "severe");
-		}
-
-		dao.closeSessionFactory();
+		User usr = (User) dao.getByEmail(user, user.getEmail());
+		usr.setPassword(user.getPassword());
+		dao.update(usr);
+		response.setStatus(getMessage("user.update.success")+ user.getClass());
+		response.setMessage("operation success ");
+		response.setTxDate(new SimpleDateFormat("dd/mm/yyyy HH:mm:ss a").format(new Date()));
+		response.setView("home");
+		response.setResponseData(user);
+		
 		return response;
 	}
 
@@ -159,12 +153,15 @@ public class EventService {
 
 
 		List<Object> users = dao.getAll(user);
+		
 		response.setReponseDataList(users);
 		response.setMessage("list of users");
 		dao.closeSessionFactory();
 		return response;	
 	}
+	
 	public Response getUser(User user,long id){
+		
 		user = (User) dao.getById(user, id);
 		response.setResponseData(user);
 		response.setMessage("single  user");
@@ -246,6 +243,66 @@ public class EventService {
 		return response;
 
 	}
+	
+	public Object getTickts(Object clazz,String property, long value){
+
+		Event event = (Event)dao.getById(new Event(), value);
+		System.out.println("event: "+ event.toString());
+		List<Object> tickets = dao.getAllByCriteria(clazz, property, value);
+		System.out.println("ti: "+tickets);
+		event.setTickets(tickets);
+		System.out.println("tickts: "+ event.toString());
+		
+		
+		
+
+		return event;
+	}
+	
+	public Object getTickt(long ticketId, long eventId){
+
+		Ticket ticket = (Ticket)dao.getById(new Ticket(), ticketId);
+		
+		Event event = (Event)dao.getById(new Event(), eventId);
+		event.setTicket(ticket);
+	
+		System.out.println("tickts: "+ event.toString());
+
+		return event;
+	}
+	
+	
+	public Response addTicket(List<Ticket> tickets){
+		
+		try {
+			for(Ticket ticket : tickets){
+				
+				dao.add(ticket);
+			}
+			
+			response.setMessage("tickt added");
+		} catch (Response e) {
+		
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
+	/**
+	 * OBS: get a profile according to the user ID
+	 * @param user
+	 * @param email
+	 * @return
+	 */
+	public Object getUserProfile(User user,String email){
+		
+		user = (User) dao.getElementByFieldName("User", "email", email);
+		Profile profile = (Profile) dao.getElementByFieldName("Profile", "user_id", String.valueOf(user.getUserId())) ;
+		profile.setUser(user);
+		response.setResponseData(profile);
+		System.out.println("profile: "+profile.toString());
+		return response.getResponseData();
+	}
 
 	public Object getById(Object object,long id) {
 		
@@ -277,6 +334,22 @@ public class EventService {
 		dao.closeSessionFactory();
 		return response;
 	}
+	public Response addEventTickets(long eventId, Ticket ticket){
+		
+		buildTransactionPedriod(ticket);
+
+		try {
+			dao.add(ticket);
+			response.setMessage("ticket added ");
+		} catch (Response e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		dao.closeSessionFactory();
+		return response;
+	}
+	
 
 	public Response bookEvent(JoinEvent joinEvent) {
 
@@ -388,20 +461,21 @@ public class EventService {
 	}
 
 
-	public Response getFromManager(Object manager,String criteria,String command) {
+	public Response getBigCards(Manager manager,String criteria,String command) {
 
 		List<Object> managers = dao.getAllByCriteria(manager,criteria, command);
-		Map<Object,Object>map = new HashMap<Object, Object>();
-		Manager m = (Manager)managers.get(0);
+		List<Object>events = new ArrayList<Object>();
+	
+		for(int i = 0; i< managers.size(); i++){
 
-		Event event = (Event)dao.getById(new Event(), m.getEventId() );
+			manager = (Manager) managers.get(i); 
+			Event event = (Event)dao.getById(new Event(), manager.getEventId());
+			if(event != null)events.add(event);
 
-		map.put("manager", managers);
-		map.put("event", event);
-		response.setMap(map);
+		}
 
-		response.setReponseDataList(managers);
-		response.setMessage("list of managers");
+		
+		response.setReponseDataList(events);
 		dao.closeSessionFactory();
 		return response;	
 
@@ -416,7 +490,10 @@ public class EventService {
 		
 		cal.setTime(crrentDate);
 		int currentYear = cal.get(Calendar.YEAR);
-		int currentMonth = cal.get(crrentDate.getMonth());
+		
+		int currentMonth = cal.get(Calendar.MONTH);
+		
+		
 		int currentDay = cal.get(Calendar.DAY_OF_MONTH);
 
 		System.out.println("size: "+obj.size());

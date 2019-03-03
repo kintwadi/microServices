@@ -2,10 +2,13 @@ package com.microservice.event.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,7 +27,7 @@ public class EventBookingDao implements IEventBookingDao {
 	private Session getSession() {
 		Session session = null;
 		try {
-			session = factory.getCurrentSession();
+			session = factory.openSession();
 		} catch (HibernateException ex) {
 			session = factory.openSession();
 		}
@@ -32,29 +35,67 @@ public class EventBookingDao implements IEventBookingDao {
 	}
 
 	@Override
-	public void add(Object object) throws Response {
+	public void add(Object object) {
 
 		
-		
+		Transaction tx = null;
 		getSession().clear();
 		getSession().flush();
-		getSession().save(object);
-		
+		Session session = factory.openSession();
+		try {
+	
+			tx = session.beginTransaction();
+			session.save(object);
+			tx.commit();
+			
+		} catch (Exception e) {
+			if (tx!=null) tx.rollback();
+		}finally {
+			session.close();
+		}
+				
+
 	}
 	
 	public void update(Object object) {
 		
+		
+		Transaction tx = null;
 		getSession().clear();
 		getSession().flush();
-		getSession().saveOrUpdate(object);
+		Session session = factory.openSession();
+		try {
+	
+			tx = session.beginTransaction();
+			session.saveOrUpdate(object);
+			tx.commit();
+			
+		} catch (Exception e) {
+			if (tx!=null) tx.rollback();
+		}finally {
+			session.close();
+		}
 	}
 
 	@Override
 	public void remove(Object object) {
 	
-		getSession().delete(object);
+		
+		Transaction tx = null;
 		getSession().clear();
 		getSession().flush();
+		Session session = factory.openSession();
+		try {
+	
+			tx = session.beginTransaction();
+			session.delete(object);
+			tx.commit();
+			
+		} catch (Exception e) {
+			if (tx!=null) tx.rollback();
+		}finally {
+			session.close();
+		}
 		
 	}
 	
@@ -63,75 +104,156 @@ public class EventBookingDao implements IEventBookingDao {
 	public List<Object> getAll(Object clazz) {
 		
 		
-		if(clazz instanceof User) {
-			
-			return getSession().createCriteria(User.class).list();
-		}
-		if(clazz instanceof Event) {
-			
-			return getSession().createCriteria(Event.class).list();
-		}
-		if(clazz instanceof Comment) {
-			
-			return getSession().createCriteria(Comment.class).list();
-		}
-       if(clazz instanceof Image) {
-			
-			return getSession().createCriteria(Image.class).list();
-		}
-       
-       if(clazz instanceof Category) {
+		Transaction tx = null;
+		getSession().clear();
+		getSession().flush();
+		Session session = factory.openSession();
 		
-			return getSession().createCriteria(Category.class).list();
-		}
-		return null;
+		List<Object>list = null;
 		
+		try{
+			
+			tx = session.beginTransaction();
+			
+			if(clazz instanceof User) {
+				
+				list = session.createCriteria(User.class).list();
+				tx.commit();
+			}
+			if(clazz instanceof Event) {
+				
+				list = session.createCriteria(Event.class).list();
+				tx.commit();
+			}
+			if(clazz instanceof Comment) {
+				
+				list = session.createCriteria(Comment.class).list();
+				tx.commit();
+			}
+	       if(clazz instanceof Image) {
+				
+	    	   list = session.createCriteria(Image.class).list();
+	    	   tx.commit();
+			}
+	       
+	       if(clazz instanceof Category) {
+			
+	    	   list = session.createCriteria(Category.class).list();
+	    	   tx.commit();
+			}
+	       if(clazz instanceof Ticket) {
+				
+	    	   list = session.createCriteria(Ticket.class).list();
+	    	   tx.commit();
+			}
+			
+		}catch (Exception e) {
+		   if(tx != null)tx.rollback();
+		}finally {
+			session.close();
+		}
+		
+		
+		return list;
+	
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Object> getAllByCriteria(Object clazz, String criteria,String entry) {
-		return getSession().createCriteria(clazz.getClass()).add(Restrictions.eq(criteria, entry)).list();
+	public List<Object> getAllByCriteria(Object clazz, String criteria,Object entry) {
+		
+		List<Object> list = null;
+		Transaction tx = null;
+		getSession().clear();
+		getSession().flush();
+		Session session = factory.openSession();
+		try{
+			tx = session.beginTransaction();
+			list = session.createCriteria(clazz.getClass()).add(Restrictions.eq(criteria, entry)).list();
+			tx.commit();
+			
+		}catch (Exception e) {
+			if(tx != null)tx.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return list;
+		
 	}
 
 	@Override
 	public Object getById(Object clazz,long id) {
 		
+		Transaction tx = null;
 		getSession().clear();
 		getSession().flush();
-		clazz = getSession().get(clazz.getClass(), id);
+		Session session = factory.openSession();
+		try{
+			tx = session.beginTransaction();
+			clazz = session.get(clazz.getClass(), id);
+			tx.commit();
+		}catch (Exception e) {
+			if(tx != null)tx.rollback();
+		}finally {
+			session.close();
+		}
+		
 		return  clazz;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object getByEmail(Object clazz, String email) {
 		
+		List <Object>list = null;
+		Transaction tx = null;
 		getSession().clear();
 		getSession().flush();
-		List list = getSession().createCriteria(clazz.getClass()).add(Restrictions.eq("email", email)).list();
-		
+		Session session = factory.openSession();
+		try{
+			tx = session.beginTransaction();
+			list = session.createCriteria(clazz.getClass()).add(Restrictions.eq("email", email)).list();
+			tx.commit();
+		}catch (Exception e) {
+			if(tx != null)tx.rollback();
+		}finally {
+			session.close();
+		}
 		return list!= null ? list.get(0):  null;
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object getElementByFieldName(String className, String field, String value) {
 		
-		
-		StringBuilder str = new StringBuilder("From ");
-		str.append(className);
-		str.append(" where ");
-		str.append(field);
-		str.append(" =:"+field);
-		
+		List<Object> list = null;
+		Transaction tx = null;
 		getSession().clear();
 		getSession().flush();
-	
-		Query query  = getSession().createQuery(str.toString());
-		query.setParameter(field,value );
-		
-		
-		return query.list().get(0);
+		Session session = factory.openSession();
+		try{
+			
+			tx = session.beginTransaction();
+			StringBuilder str = new StringBuilder("From ");
+			str.append(className);
+			str.append(" where ");
+			str.append(field);
+			str.append(" =:"+field);
+			Query query  = session.createQuery(str.toString());
+			query.setParameter(field,value );
+			list = query.list();
+			tx.commit();
+			
+		}catch (Exception e) {
+			if(tx != null) tx.rollback();
+		}finally {
+			session.close();
+		}
+		//System.out.println("object: "+ list.toString());
+			
+		return list.get(0);
 	}
 	
 	@Override
@@ -144,9 +266,6 @@ public class EventBookingDao implements IEventBookingDao {
 	}
 	
 
-
-
-	
 
 
 }

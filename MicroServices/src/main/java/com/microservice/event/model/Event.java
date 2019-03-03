@@ -38,7 +38,7 @@ public class Event extends EventDetails implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Event [type=" + type + ", description=" + description + "]";
+		return "Event [type=" + type + ", description=" + description + ", getTickets()=" + getTickets() + "]";
 	}
 	
 	

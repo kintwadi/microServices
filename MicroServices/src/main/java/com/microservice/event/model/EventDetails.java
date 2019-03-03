@@ -14,6 +14,7 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -23,13 +24,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
 @MappedSuperclass
 public class EventDetails {
-	
+
 	@Id
 	@GeneratedValue
 	private long eventId;
+	private String title;
 	private String country;
 	private String city;
 	private String street;
+	private String image;
 	private String reference;
 	private int numberOfSeats;
 	private String seatStyle;// banket, classroom etc
@@ -47,7 +50,16 @@ public class EventDetails {
 	private String year;
 	private double price;
 	private String currencyCode;
+	private String postalCode;
+	private String startTimeZone;
+	private String endTimeZone;
+	@Transient
+	private List<Object> tickets;
 	
+	@Transient
+	private Ticket ticket;
+
+
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="userId")
@@ -57,27 +69,58 @@ public class EventDetails {
 	@OneToMany(mappedBy ="event", fetch=FetchType.EAGER, cascade=CascadeType.ALL)      
 	@Fetch(value = FetchMode.SUBSELECT)                                               
 	private List<Image>images = new ArrayList<>(); 
-	
+
 	@JsonIgnore                                                            
 	@OneToMany(mappedBy ="event", fetch=FetchType.EAGER, cascade=CascadeType.ALL)      
 	@Fetch(value = FetchMode.SUBSELECT)                                               
 	private List<Comment>comments = new ArrayList<>();   
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy ="event", fetch=FetchType.EAGER, cascade=CascadeType.ALL)      
 	@Fetch(value = FetchMode.SUBSELECT)                                               
 	private List<Like>likes = new ArrayList<>(); 
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy ="event", fetch=FetchType.EAGER, cascade=CascadeType.ALL)      
 	@Fetch(value = FetchMode.SUBSELECT)                                               
 	private List<JoinEvent>joiningEvent = new ArrayList<>();  
-    
+
+	public EventDetails() {
+
+	}
+
 	public List<JoinEvent> getJoiningEvent() {
 		return joiningEvent;
 	}
+	
+	
 
 
+
+	
+	public Ticket getTicket() {
+		return ticket;
+	}
+
+	public void setTicket(Ticket ticket) {
+		this.ticket = ticket;
+	}
+
+	public List<Object> getTickets() {
+		return tickets;
+	}
+
+	public void setTickets(List<Object> tickets) {
+		this.tickets = tickets;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
 	public void setJoiningEvent(List<JoinEvent> joiningEvent) {
 		this.joiningEvent = joiningEvent;
@@ -85,17 +128,19 @@ public class EventDetails {
 
 
 
-	public EventDetails() {
-		
-	}
-	
-	
-
 	public int getNumberOfSeats() {
 		return numberOfSeats;
 	}
 
+	
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
 
 	public void setNumberOfSeats(int numberOfSeats) {
 		this.numberOfSeats = numberOfSeats;
@@ -191,7 +236,7 @@ public class EventDetails {
 
 
 
-	
+
 
 
 
@@ -210,8 +255,8 @@ public class EventDetails {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	
+
+
 
 
 
@@ -249,7 +294,7 @@ public class EventDetails {
 		this.seconds = seconds;
 	}
 
-	
+
 
 
 	public String getHour() {
@@ -274,7 +319,7 @@ public class EventDetails {
 		this.minuts = minuts;
 	}
 
-	
+
 
 
 	public String getStart() {
@@ -310,8 +355,8 @@ public class EventDetails {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
-	
+
+
 
 
 
@@ -324,8 +369,8 @@ public class EventDetails {
 	public void setCurrencyCode(String currencyCode) {
 		this.currencyCode = currencyCode;
 	}
-	
-	
+
+
 
 
 
@@ -338,8 +383,8 @@ public class EventDetails {
 	public void setLikes(List<Like> likes) {
 		this.likes = likes;
 	}
-	
-	
+
+
 
 
 
@@ -364,25 +409,52 @@ public class EventDetails {
 	public void setYear(String year) {
 		this.year = year;
 	}
+	
+	
 
 
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+
+	public String getStartTimeZone() {
+		return startTimeZone;
+	}
+
+	public void setStartTimeZone(String startTimeZone) {
+		this.startTimeZone = startTimeZone;
+	}
+
+	public String getEndTimeZone() {
+		return endTimeZone;
+	}
+
+	public void setEndTimeZone(String endTimeZone) {
+		this.endTimeZone = endTimeZone;
+	}
 
 	@Override
 	public String toString() {
-		return "EventDetails [eventId=" + eventId + ", country=" + country + ", city=" + city + ", street=" + street
-				+ ", reference=" + reference + ", numberOfSeats=" + numberOfSeats + ", seatStyle=" + seatStyle
-				+ ", lat=" + lat + ", longe=" + longe + ", date=" + date + ", month=" + month + ", day=" + day
-				+ ", hour=" + hour + ", minuts=" + minuts + ", seconds=" + seconds + ", start=" + start + ", end=" + end
-				+ ", year=" + year + ", price=" + price + ", currencyCode=" + currencyCode + ", user=" + user
-				+ ", images=" + images + ", comments=" + comments + ", likes=" + likes + ", joiningEvent="
-				+ joiningEvent + "]";
+		return "EventDetails [eventId=" + eventId + ", title=" + title + ", country=" + country + ", city=" + city
+				+ ", street=" + street + ", image=" + image + ", reference=" + reference + ", numberOfSeats="
+				+ numberOfSeats + ", seatStyle=" + seatStyle + ", lat=" + lat + ", longe=" + longe + ", date=" + date
+				+ ", month=" + month + ", day=" + day + ", hour=" + hour + ", minuts=" + minuts + ", seconds=" + seconds
+				+ ", start=" + start + ", end=" + end + ", year=" + year + ", price=" + price + ", currencyCode="
+				+ currencyCode + ", postalCode=" + postalCode + ", startTimeZone=" + startTimeZone + ", endTimeZone="
+				+ endTimeZone + ", tickets=" + tickets + ", ticket=" + ticket + ", user=" + user + ", images=" + images
+				+ ", comments=" + comments + ", likes=" + likes + ", joiningEvent=" + joiningEvent + "]";
 	}
-	
-	
 
 
 
-	
+
+
+
 
 
 

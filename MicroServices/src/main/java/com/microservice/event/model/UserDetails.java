@@ -25,7 +25,7 @@ public class UserDetails {
 	private String country;
 	private String city;
 	private String street;
-	private String profile;
+	//private String profile;
 	private boolean active;
 	
 	@JsonIgnore
@@ -48,6 +48,12 @@ public class UserDetails {
 	private List<JoinEvent>joiningEvent = new ArrayList<>();
 	
 	
+	@JsonIgnore
+	@OneToMany(mappedBy ="user", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<Profile>profiles = new ArrayList<>();
+	
+	
 	public UserDetails(long userId, String cellphone, String country, String city, String street) {
 		super();
 		this.userId = userId;
@@ -58,7 +64,7 @@ public class UserDetails {
 	}
 	public UserDetails() {
 		
-		setProfile("basic");
+		//setProfile("basic");
 		setActive(true);
 	
 	}
@@ -127,12 +133,6 @@ public class UserDetails {
 		this.likes = likes;
 	}
 	
-	public String getProfile() {
-		return profile;
-	}
-	public void setProfile(String profile) {
-		this.profile = profile;
-	}
 	
 	public boolean isActive() {
 		return active;
@@ -140,12 +140,21 @@ public class UserDetails {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+	
+	
+	public List<Profile> getProfiles() {
+		return profiles;
+	}
+	public void setProfiles(List<Profile> profiles) {
+		this.profiles = profiles;
+	}
 	@Override
 	public String toString() {
 		return "UserDetails [userId=" + userId + ", cellphone=" + cellphone + ", country=" + country + ", city=" + city
-				+ ", street=" + street + ", profile=" + profile + ", active=" + active + ", events=" + events
-				+ ", comments=" + comments + ", likes=" + likes + ", joiningEvent=" + joiningEvent + "]";
+				+ ", street=" + street + ", active=" + active + ", events=" + events + ", comments=" + comments
+				+ ", likes=" + likes + ", joiningEvent=" + joiningEvent + ", profiles=" + profiles + "]";
 	}
+	
 	
 	
 	
