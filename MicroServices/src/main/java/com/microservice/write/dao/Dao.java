@@ -1,4 +1,4 @@
-package com.microservice.event.dao;
+package com.microservice.write.dao;
 
 import java.util.List;
 
@@ -13,13 +13,13 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.microservice.event.model.*;
-import com.microservice.event.response.Response;
+import com.microservice.write.model.*;
+import com.microservice.write.response.Response;
 
 
 
 @Repository
-public class EventBookingDao implements IEventBookingDao {
+public class Dao implements IDao {
 
 	@Autowired
 	private SessionFactory factory;

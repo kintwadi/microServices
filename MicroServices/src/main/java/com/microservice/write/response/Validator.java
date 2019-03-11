@@ -1,4 +1,4 @@
-package com.microservice.event.response;
+package com.microservice.write.response;
 import org.apache.commons.validator.routines.EmailValidator;
 public class Validator {
 	

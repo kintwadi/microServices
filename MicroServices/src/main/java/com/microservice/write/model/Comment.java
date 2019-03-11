@@ -1,4 +1,4 @@
-package com.microservice.event.model;
+package com.microservice.write.model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,17 +15,20 @@ import javax.persistence.TemporalType;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Component
 @Entity
-@Table(name="LIKE_EVENT")
-public class Like implements Serializable{
+@Table(name="COMMENT")
+public class Comment  implements Serializable{
+	
 
-	
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = -5004223313784109665L;
 	@Id
 	@GeneratedValue
-	private long likeId;
+	private long commentId;
+	private String comment;
+	
 	@Temporal(TemporalType.DATE)
 	private Date date;
 	private String month;
@@ -33,6 +36,7 @@ public class Like implements Serializable{
 	private String hour;
 	private String minuts;
 	private String seconds;
+	
 	
 	@JsonIgnore
 	@ManyToOne
@@ -44,28 +48,62 @@ public class Like implements Serializable{
 	@JoinColumn(name="userId")
 	private User user;
 	
-	public Like(){
+	public Comment() {
 		
 	}
 	
-	public Like addRelationShip(Object object) {
-
+	public Comment addRelationShip(Object object) {
+		
 		if(object instanceof User) {
 			this.user = (User)object;
 			return this;
 		}
-
+		
 		this.event = (Event)object;
 		return this;
-
+			
 	}
 
-	public long getLikeId() {
-		return likeId;
+	public long getId() {
+		return commentId;
 	}
 
-	public void setLikeId(long likeId) {
-		this.likeId = likeId;
+	public void setId(long commentId) {
+		this.commentId = commentId;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	
+	public long getCommentId() {
+		return commentId;
+	}
+
+	public void setCommentId(long commentId) {
+		this.commentId = commentId;
+	}
+
+
+	public void setEvent(Event event) {
+		this.event = event;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Event getEvent() {
+		return event;
 	}
 
 	public Date getDate() {
@@ -116,31 +154,29 @@ public class Like implements Serializable{
 		this.seconds = seconds;
 	}
 
-	public Event getEvent() {
-		return event;
-	}
-
-	public void setEvent(Event event) {
-		this.event = event;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	@Override
 	public String toString() {
-		return "Like [likeId=" + likeId + ", date=" + date + ", month=" + month + ", day=" + day + ", hour=" + hour
-				+ ", minuts=" + minuts + ", seconds=" + seconds + ", event=" + event + ", user=" + user + "]";
+		return "Comment [commentId=" + commentId + ", comment=" + comment + ", date=" + date + ", month=" + month
+				+ ", day=" + day + ", hour=" + hour + ", minuts=" + minuts + ", seconds=" + seconds + ", event=" + event
+				+ ", user=" + user + "]";
 	}
-	
-	
-	
-	
+
 	
 
+
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

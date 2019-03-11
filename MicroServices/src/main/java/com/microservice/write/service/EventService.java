@@ -1,4 +1,4 @@
-package com.microservice.event.service;
+package com.microservice.write.service;
 
 import java.awt.color.ProfileDataException;
 import java.text.SimpleDateFormat;
@@ -25,10 +25,10 @@ import org.springframework.context.annotation.PropertySources;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
-import com.microservice.event.dao.IEventBookingDao;
-import com.microservice.event.model.*;
-import com.microservice.event.response.Response;
-import com.microservice.event.response.Validator;
+import com.microservice.write.dao.IDao;
+import com.microservice.write.model.*;
+import com.microservice.write.response.Response;
+import com.microservice.write.response.Validator;
 
 
 @Configuration
@@ -41,7 +41,7 @@ import com.microservice.event.response.Validator;
 @Transactional
 public class EventService {
 	@Autowired
-	private IEventBookingDao dao;
+	private IDao dao;
 	@Autowired
 	private Response response ;
 

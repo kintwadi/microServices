@@ -1,4 +1,4 @@
-package com.microservice.event.model;
+package com.microservice.write.model;
 
 public class Authorities {
 	

@@ -1,4 +1,4 @@
-package com.microservice.event.controllers;
+package com.microservice.write.controllers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.microservice.event.model.*;
-import com.microservice.event.response.Response;
-import com.microservice.event.service.EventService;
+import com.microservice.write.model.*;
+import com.microservice.write.response.Response;
+import com.microservice.write.service.EventService;
 
 
 

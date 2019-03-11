@@ -1,11 +1,11 @@
-package com.microservice.event.dao;
+package com.microservice.write.dao;
 
 import java.util.List;
 
-import com.microservice.event.response.Response;
+import com.microservice.write.response.Response;
 
 
-public interface IEventBookingDao {
+public interface IDao {
 	
 	
 	public void add(Object object) throws Response;

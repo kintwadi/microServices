@@ -1,14 +1,13 @@
-package com.microservice.event.model;
+package com.microservice.write.model;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,37 +17,15 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
 @Entity
-@Table(name ="JOINEVENT")
-public class JoinEvent implements Serializable {
+@Table(name="LIKE_EVENT")
+public class Like implements Serializable{
 
+	
 	private static final long serialVersionUID = 1L;
-
-	@EmbeddedId
-	private JoinEventHelper id;
 	
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	//@JoinColumn(name="eventId")
-	@MapsId("eventId")
-	private Event event;
-
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	//@JoinColumn(name="userId")
-	@MapsId("userId")
-	private User user;
-	
-
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	//@JoinColumn(name="placementId")
-	@MapsId("placementId")
-	private Placement plecement;
-	
-
-	private boolean paid;
-	private int bookingCountDays;
-	
+	@Id
+	@GeneratedValue
+	private long likeId;
 	@Temporal(TemporalType.DATE)
 	private Date date;
 	private String month;
@@ -56,32 +33,41 @@ public class JoinEvent implements Serializable {
 	private String hour;
 	private String minuts;
 	private String seconds;
-
-	public JoinEvent(){
-
+	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name="eventId")
+	private Event event;
+	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name="userId")
+	private User user;
+	
+	public Like(){
+		
 	}
-	public JoinEvent addRelationShip(Object object) {
+	
+	public Like addRelationShip(Object object) {
 
 		if(object instanceof User) {
 			this.user = (User)object;
 			return this;
 		}
-		
 
 		this.event = (Event)object;
 		return this;
 
 	}
 
-	
-
-
-	public JoinEventHelper getId() {
-		return id;
+	public long getLikeId() {
+		return likeId;
 	}
-	public void setId(JoinEventHelper id) {
-		this.id = id;
+
+	public void setLikeId(long likeId) {
+		this.likeId = likeId;
 	}
+
 	public Date getDate() {
 		return date;
 	}
@@ -145,30 +131,16 @@ public class JoinEvent implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
 
-	public boolean isPaid() {
-		return paid;
-	}
-	public void setPaid(boolean paid) {
-		this.paid = paid;
-	}
-	public int getBookingCountDays() {
-		return bookingCountDays;
-	}
-	public void setBookingCountDays(int bookingCountDays) {
-		this.bookingCountDays = bookingCountDays;
+	@Override
+	public String toString() {
+		return "Like [likeId=" + likeId + ", date=" + date + ", month=" + month + ", day=" + day + ", hour=" + hour
+				+ ", minuts=" + minuts + ", seconds=" + seconds + ", event=" + event + ", user=" + user + "]";
 	}
 	
 	
-	public Placement getPlecement() {
-		return plecement;
-	}
-	public void setPlecement(Placement plecement) {
-		this.plecement = plecement;
-	}
 	
-
-
+	
+	
 
 }
