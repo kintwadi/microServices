@@ -1,16 +1,25 @@
 package com.microservice.write.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Generated;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Component
 @Entity
 @Table(name="AUTHOR")
 public class Author {
@@ -25,8 +34,14 @@ public class Author {
 	private String email;
     private String biography;
 	private String photo;
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Topic> topics;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy ="author", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<Topic> topics = new ArrayList<>();
+	
+	
+
 	
 	public Author() {
 		super();
